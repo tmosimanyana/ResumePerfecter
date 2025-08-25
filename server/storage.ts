@@ -80,6 +80,7 @@ export class MemStorage implements IStorage {
     const jobDescription: JobDescription = {
       ...insertJobDescription,
       id,
+      company: insertJobDescription.company || null,
       createdAt: new Date(),
     };
     this.jobDescriptions.set(id, jobDescription);
@@ -95,6 +96,11 @@ export class MemStorage implements IStorage {
     const analysis: Analysis = {
       ...insertAnalysis,
       id,
+      foundKeywords: insertAnalysis.foundKeywords || null,
+      missingKeywords: insertAnalysis.missingKeywords || null,
+      recommendations: insertAnalysis.recommendations || null,
+      formattingChecks: insertAnalysis.formattingChecks || null,
+      skillsGap: insertAnalysis.skillsGap || null,
       analyzedAt: new Date(),
     };
     this.analyses.set(id, analysis);
@@ -113,7 +119,11 @@ export class MemStorage implements IStorage {
 
   async getRecentAnalyses(limit: number = 10): Promise<Analysis[]> {
     const sortedAnalyses = Array.from(this.analyses.values())
-      .sort((a, b) => new Date(b.analyzedAt).getTime() - new Date(a.analyzedAt).getTime());
+      .sort((a, b) => {
+        const dateA = a.analyzedAt ? new Date(a.analyzedAt).getTime() : 0;
+        const dateB = b.analyzedAt ? new Date(b.analyzedAt).getTime() : 0;
+        return dateB - dateA;
+      });
     return sortedAnalyses.slice(0, limit);
   }
 }

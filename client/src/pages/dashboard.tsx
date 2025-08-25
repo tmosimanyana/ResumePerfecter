@@ -16,23 +16,23 @@ import {
 } from "lucide-react";
 
 export default function Dashboard() {
-  const [uploadedResume, setUploadedResume] = useState(null);
-  const [jobDescription, setJobDescription] = useState(null);
-  const [analysisResult, setAnalysisResult] = useState(null);
+  const [uploadedResume, setUploadedResume] = useState<any>(null);
+  const [jobDescription, setJobDescription] = useState<any>(null);
+  const [analysisResult, setAnalysisResult] = useState<any>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
 
   // Fetch recent analyses for stats
-  const { data: recentAnalyses } = useQuery({
+  const { data: recentAnalyses = [] } = useQuery({
     queryKey: ["/api/analyses/recent", { limit: 5 }],
     enabled: true
   });
 
   const userStats = {
-    totalAnalyzed: recentAnalyses?.length || 0,
-    averageScore: recentAnalyses?.length 
+    totalAnalyzed: Array.isArray(recentAnalyses) ? recentAnalyses.length : 0,
+    averageScore: Array.isArray(recentAnalyses) && recentAnalyses.length > 0
       ? Math.round(recentAnalyses.reduce((sum: number, analysis: any) => sum + analysis.overallScore, 0) / recentAnalyses.length)
       : 0,
-    bestScore: recentAnalyses?.length 
+    bestScore: Array.isArray(recentAnalyses) && recentAnalyses.length > 0
       ? Math.max(...recentAnalyses.map((analysis: any) => analysis.overallScore))
       : 0
   };
@@ -240,7 +240,7 @@ export default function Dashboard() {
             </Card>
 
             {/* Recent Analysis */}
-            {recentAnalyses && recentAnalyses.length > 0 && (
+            {Array.isArray(recentAnalyses) && recentAnalyses.length > 0 && (
               <Card>
                 <CardHeader>
                   <CardTitle className="flex items-center text-lg">
