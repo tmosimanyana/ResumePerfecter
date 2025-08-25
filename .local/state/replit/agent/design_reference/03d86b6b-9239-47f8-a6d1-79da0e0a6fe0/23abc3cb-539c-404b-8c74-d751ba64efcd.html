@@ -1,0 +1,633 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ATS Resume Optimizer - Make Your Resume ATS-Compliant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: '#1976D2',
+                        secondary: '#4CAF50',
+                        accent: '#FF9800',
+                        danger: '#F44336',
+                        muted: '#757575',
+                        'bg-light': '#FAFAFA',
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #1976D2 0%, #1565C0 100%);
+        }
+        .score-meter {
+            background: conic-gradient(from 0deg, #4CAF50 0% var(--percentage), #E0E0E0 var(--percentage) 100%);
+        }
+    </style>
+</head>
+<body class="font-inter bg-bg-light min-h-screen">
+    <!-- @COMPONENT: Header [Navigation and branding] -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-primary rounded-lg flex items-center justify-center">
+                        <i class="fas fa-file-alt text-white text-lg"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-gray-900">ATS Resume Optimizer</h1>
+                        <p class="text-sm text-muted">Make your resume ATS-compliant</p>
+                    </div>
+                </div>
+                <nav class="hidden md:flex items-center space-x-6">
+                    <a href="#" class="text-gray-600 hover:text-primary transition-colors">Dashboard</a>
+                    <a href="#" class="text-gray-600 hover:text-primary transition-colors">History</a>
+                    <a href="#" class="text-gray-600 hover:text-primary transition-colors">Templates</a>
+                    <button class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                        <i class="fas fa-user mr-2"></i>Account
+                    </button>
+                </nav>
+                <button class="md:hidden p-2 rounded-lg text-gray-600 hover:bg-gray-100">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+    <!-- @END_COMPONENT: Header -->
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- @COMPONENT: HeroSection [Main value proposition and CTA] -->
+        <div class="gradient-bg rounded-2xl p-8 mb-8 text-white">
+            <div class="grid lg:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h2 class="text-3xl lg:text-4xl font-bold mb-4">
+                        Optimize Your Resume for ATS Systems
+                    </h2>
+                    <p class="text-blue-100 text-lg mb-6">
+                        Get past Applicant Tracking Systems with our AI-powered analysis. Upload your resume and job description to receive instant feedback and optimization suggestions.
+                    </p>
+                    <div class="flex items-center space-x-4 text-blue-100">
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            <span>Instant Analysis</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            <span>ATS-Friendly Format</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check-circle mr-2"></i>
+                            <span>Keyword Optimization</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="hidden lg:block">
+                    <!-- Professional resume optimization concept image -->
+                    <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&h=600" 
+                         alt="Professional working on resume optimization" 
+                         class="rounded-xl shadow-lg w-full h-auto opacity-90" />
+                </div>
+            </div>
+        </div>
+        <!-- @END_COMPONENT: HeroSection -->
+
+        <div class="grid lg:grid-cols-3 gap-8">
+            <!-- @COMPONENT: UploadSection [File upload and job description input] -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Resume Upload Card -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-semibold text-gray-900 flex items-center">
+                            <i class="fas fa-upload mr-3 text-primary"></i>
+                            Upload Your Resume
+                        </h3>
+                        <span class="text-sm text-muted">Step 1 of 2</span>
+                    </div>
+                    
+                    <!-- @FUNCTIONALITY: File upload dropzone with drag & drop support -->
+                    <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-primary transition-colors cursor-pointer group" 
+                         data-implementation="Implement file upload with PDF/DOCX parsing">
+                        <div class="group-hover:scale-105 transition-transform">
+                            <i class="fas fa-cloud-upload-alt text-4xl text-gray-400 group-hover:text-primary mb-4 transition-colors"></i>
+                            <p class="text-lg font-medium text-gray-700 mb-2">Drop your resume here or click to browse</p>
+                            <p class="text-sm text-muted mb-4">Supports PDF, DOCX files up to 10MB</p>
+                            <button class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                                Choose File
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- File Status (Hidden by default) -->
+                    <div class="mt-4 hidden" data-mock="true" data-implementation="Show after file upload">
+                        <div class="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg">
+                            <div class="flex items-center">
+                                <i class="fas fa-file-pdf text-red-500 mr-3"></i>
+                                <div>
+                                    <p class="font-medium text-gray-900" data-bind="uploadedFile.name">john_doe_resume.pdf</p>
+                                    <p class="text-sm text-muted" data-bind="uploadedFile.size">245 KB</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <i class="fas fa-check-circle text-secondary"></i>
+                                <button class="text-gray-400 hover:text-gray-600">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Job Description Input Card -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-semibold text-gray-900 flex items-center">
+                            <i class="fas fa-briefcase mr-3 text-primary"></i>
+                            Target Job Description
+                        </h3>
+                        <span class="text-sm text-muted">Step 2 of 2</span>
+                    </div>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Job Title</label>
+                            <input type="text" 
+                                   placeholder="e.g., Senior Software Engineer" 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                                   data-bind="jobDetails.title"
+                                   data-implementation="Form validation and state management">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Company (Optional)</label>
+                            <input type="text" 
+                                   placeholder="e.g., Google, Microsoft, etc." 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
+                                   data-bind="jobDetails.company">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">
+                                Job Description
+                                <span class="text-muted font-normal">(Paste the full job posting)</span>
+                            </label>
+                            <textarea placeholder="Paste the complete job description here. Include requirements, responsibilities, and qualifications for the best keyword analysis..."
+                                      rows="8" 
+                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
+                                      data-bind="jobDetails.description"
+                                      data-implementation="Character count and keyword preview"></textarea>
+                        </div>
+                        
+                        <button class="w-full bg-primary text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition-colors font-medium text-lg flex items-center justify-center"
+                                data-event="click:handleAnalysis"
+                                data-implementation="Trigger resume analysis with loading state">
+                            <i class="fas fa-magic mr-2"></i>
+                            Analyze Resume
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- @END_COMPONENT: UploadSection -->
+
+            <!-- @COMPONENT: QuickStats [Overview statistics and tips] -->
+            <div class="space-y-6">
+                <!-- Quick Stats -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                        <i class="fas fa-chart-line mr-2 text-primary"></i>
+                        Your ATS Stats
+                    </h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Resumes Analyzed</span>
+                            <span class="text-2xl font-bold text-primary" data-bind="userStats.totalAnalyzed">12</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Average Score</span>
+                            <span class="text-2xl font-bold text-secondary" data-bind="userStats.averageScore">78%</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-600">Best Score</span>
+                            <span class="text-2xl font-bold text-accent" data-bind="userStats.bestScore">92%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tips Card -->
+                <div class="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl border border-blue-200 p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                        <i class="fas fa-lightbulb mr-2 text-accent"></i>
+                        Pro Tips
+                    </h3>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-secondary mr-2 mt-1 text-xs"></i>
+                            <span>Use exact keywords from the job description</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-secondary mr-2 mt-1 text-xs"></i>
+                            <span>Keep formatting simple and ATS-friendly</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-secondary mr-2 mt-1 text-xs"></i>
+                            <span>Include relevant technical skills</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-secondary mr-2 mt-1 text-xs"></i>
+                            <span>Quantify your achievements with metrics</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Recent Analysis -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-4 flex items-center">
+                        <i class="fas fa-history mr-2 text-primary"></i>
+                        Recent Analysis
+                    </h3>
+                    <!-- @MAP: recentAnalyses.map(analysis => ( -->
+                    <div class="space-y-3" data-mock="true">
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div>
+                                <p class="font-medium text-gray-900" data-bind="analysis.jobTitle">Frontend Developer</p>
+                                <p class="text-sm text-muted" data-bind="analysis.date">2 hours ago</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-lg font-bold text-secondary" data-bind="analysis.score">85%</span>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                            <div>
+                                <p class="font-medium text-gray-900" data-bind="analysis.jobTitle">Product Manager</p>
+                                <p class="text-sm text-muted" data-bind="analysis.date">1 day ago</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-lg font-bold text-accent" data-bind="analysis.score">72%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- @END_MAP )) -->
+                </div>
+            </div>
+            <!-- @END_COMPONENT: QuickStats -->
+        </div>
+
+        <!-- @COMPONENT: AnalysisResults [Detailed analysis results - hidden by default] -->
+        <div class="mt-12 hidden animate-fade-in" data-implementation="Show after analysis completion" data-mock="true">
+            <!-- Analysis Header -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6 mb-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-2xl font-bold text-gray-900 flex items-center">
+                        <i class="fas fa-chart-pie mr-3 text-primary"></i>
+                        Analysis Results
+                    </h2>
+                    <div class="flex items-center space-x-3">
+                        <button class="text-gray-500 hover:text-primary transition-colors">
+                            <i class="fas fa-download mr-1"></i>
+                            Export Report
+                        </button>
+                        <button class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                            <i class="fas fa-redo mr-1"></i>
+                            Re-analyze
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="grid md:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <div class="relative w-20 h-20 mx-auto mb-3">
+                            <div class="score-meter w-full h-full rounded-full" style="--percentage: 75%"></div>
+                            <div class="absolute inset-0 flex items-center justify-center">
+                                <span class="text-xl font-bold text-gray-900" data-bind="analysisResults.overallScore">75%</span>
+                            </div>
+                        </div>
+                        <p class="font-medium text-gray-900">Overall Score</p>
+                        <p class="text-sm text-muted">Good Match</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-20 h-20 mx-auto mb-3 bg-secondary/10 rounded-full flex items-center justify-center">
+                            <span class="text-2xl font-bold text-secondary" data-bind="analysisResults.keywordMatch">68%</span>
+                        </div>
+                        <p class="font-medium text-gray-900">Keyword Match</p>
+                        <p class="text-sm text-muted">Above Average</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-20 h-20 mx-auto mb-3 bg-accent/10 rounded-full flex items-center justify-center">
+                            <span class="text-2xl font-bold text-accent" data-bind="analysisResults.formatScore">82%</span>
+                        </div>
+                        <p class="font-medium text-gray-900">ATS Format</p>
+                        <p class="text-sm text-muted">Excellent</p>
+                    </div>
+                    
+                    <div class="text-center">
+                        <div class="w-20 h-20 mx-auto mb-3 bg-primary/10 rounded-full flex items-center justify-center">
+                            <span class="text-2xl font-bold text-primary" data-bind="analysisResults.skillsMatch">71%</span>
+                        </div>
+                        <p class="font-medium text-gray-900">Skills Match</p>
+                        <p class="text-sm text-muted">Good</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid lg:grid-cols-2 gap-6">
+                <!-- Keyword Analysis -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                        <i class="fas fa-key mr-3 text-secondary"></i>
+                        Keyword Analysis
+                    </h3>
+                    
+                    <!-- Found Keywords -->
+                    <div class="mb-6">
+                        <h4 class="font-medium text-gray-900 mb-3 flex items-center">
+                            <i class="fas fa-check-circle text-secondary mr-2"></i>
+                            Found Keywords <span class="text-muted">(<span data-bind="keywordAnalysis.foundCount">12</span>/18)</span>
+                        </h4>
+                        <div class="flex flex-wrap gap-2">
+                            <!-- @MAP: foundKeywords.map(keyword => ( -->
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium" data-bind="keyword.text">JavaScript</span>
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium" data-bind="keyword.text">React</span>
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium" data-bind="keyword.text">Node.js</span>
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium" data-bind="keyword.text">TypeScript</span>
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium" data-bind="keyword.text">API Development</span>
+                            <span class="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium" data-bind="keyword.text">MongoDB</span>
+                            <!-- @END_MAP )) -->
+                        </div>
+                    </div>
+                    
+                    <!-- Missing Keywords -->
+                    <div>
+                        <h4 class="font-medium text-gray-900 mb-3 flex items-center">
+                            <i class="fas fa-exclamation-triangle text-accent mr-2"></i>
+                            Missing Keywords <span class="text-muted">(<span data-bind="keywordAnalysis.missingCount">6</span> to add)</span>
+                        </h4>
+                        <div class="flex flex-wrap gap-2">
+                            <!-- @MAP: missingKeywords.map(keyword => ( -->
+                            <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium" data-bind="keyword.text">GraphQL</span>
+                            <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium">Docker</span>
+                            <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium">AWS</span>
+                            <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium">Microservices</span>
+                            <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium">CI/CD</span>
+                            <span class="bg-red-100 text-red-800 px-3 py-1 rounded-full text-sm font-medium">Agile</span>
+                            <!-- @END_MAP )) -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recommendations -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                        <i class="fas fa-lightbulb mr-3 text-accent"></i>
+                        Recommendations
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <!-- @MAP: recommendations.map(rec => ( -->
+                        <div class="border-l-4 border-accent pl-4 py-2">
+                            <h4 class="font-medium text-gray-900 mb-1" data-bind="recommendation.title">Add Missing Technical Skills</h4>
+                            <p class="text-sm text-gray-600 mb-2" data-bind="recommendation.description">Include GraphQL, Docker, and AWS experience in your skills section or project descriptions.</p>
+                            <span class="text-xs bg-accent/10 text-accent px-2 py-1 rounded-full font-medium" data-bind="recommendation.priority">High Priority</span>
+                        </div>
+                        
+                        <div class="border-l-4 border-primary pl-4 py-2">
+                            <h4 class="font-medium text-gray-900 mb-1" data-bind="recommendation.title">Quantify Your Achievements</h4>
+                            <p class="text-sm text-gray-600 mb-2" data-bind="recommendation.description">Add specific metrics to your accomplishments (e.g., "Improved app performance by 40%").</p>
+                            <span class="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full font-medium" data-bind="recommendation.priority">Medium Priority</span>
+                        </div>
+                        
+                        <div class="border-l-4 border-secondary pl-4 py-2">
+                            <h4 class="font-medium text-gray-900 mb-1" data-bind="recommendation.title">Optimize Section Headings</h4>
+                            <p class="text-sm text-gray-600 mb-2" data-bind="recommendation.description">Use standard ATS-friendly headings like "Professional Experience" instead of "Work History".</p>
+                            <span class="text-xs bg-secondary/10 text-secondary px-2 py-1 rounded-full font-medium" data-bind="recommendation.priority">Low Priority</span>
+                        </div>
+                        <!-- @END_MAP )) -->
+                    </div>
+                    
+                    <button class="w-full mt-4 bg-gradient-to-r from-primary to-blue-600 text-white py-3 px-6 rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all font-medium flex items-center justify-center"
+                            data-implementation="Generate optimized resume suggestions">
+                        <i class="fas fa-magic mr-2"></i>
+                        Generate Optimized Version
+                    </button>
+                </div>
+            </div>
+
+            <!-- Detailed Analysis Sections -->
+            <div class="mt-6 grid lg:grid-cols-2 gap-6">
+                <!-- ATS Formatting Check -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                        <i class="fas fa-file-check mr-3 text-primary"></i>
+                        ATS Formatting Check
+                    </h3>
+                    
+                    <div class="space-y-3">
+                        <!-- @MAP: formattingChecks.map(check => ( -->
+                        <div class="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg">
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle text-secondary mr-3"></i>
+                                <span class="text-gray-900" data-bind="check.name">Simple formatting used</span>
+                            </div>
+                            <span class="text-sm font-medium text-secondary">✓ Passed</span>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg">
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle text-secondary mr-3"></i>
+                                <span class="text-gray-900" data-bind="check.name">Standard fonts detected</span>
+                            </div>
+                            <span class="text-sm font-medium text-secondary">✓ Passed</span>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-3 bg-red-50 border border-red-200 rounded-lg">
+                            <div class="flex items-center">
+                                <i class="fas fa-exclamation-circle text-danger mr-3"></i>
+                                <span class="text-gray-900" data-bind="check.name">Graphics/images found</span>
+                            </div>
+                            <span class="text-sm font-medium text-danger">⚠ Warning</span>
+                        </div>
+                        
+                        <div class="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg">
+                            <div class="flex items-center">
+                                <i class="fas fa-check-circle text-secondary mr-3"></i>
+                                <span class="text-gray-900" data-bind="check.name">Contact info accessible</span>
+                            </div>
+                            <span class="text-sm font-medium text-secondary">✓ Passed</span>
+                        </div>
+                        <!-- @END_MAP )) -->
+                    </div>
+                </div>
+
+                <!-- Skills Gap Analysis -->
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                    <h3 class="text-xl font-semibold text-gray-900 mb-4 flex items-center">
+                        <i class="fas fa-chart-bar mr-3 text-accent"></i>
+                        Skills Gap Analysis
+                    </h3>
+                    
+                    <!-- @FUNCTIONALITY: Interactive skill matching visualization -->
+                    <div class="space-y-4" data-implementation="Interactive charts showing skill alignment">
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-medium text-gray-700">Technical Skills</span>
+                                <span class="text-sm font-bold text-secondary">85%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-secondary h-2 rounded-full" style="width: 85%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-medium text-gray-700">Soft Skills</span>
+                                <span class="text-sm font-bold text-accent">65%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-accent h-2 rounded-full" style="width: 65%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-medium text-gray-700">Industry Keywords</span>
+                                <span class="text-sm font-bold text-primary">72%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full" style="width: 72%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-medium text-gray-700">Experience Level</span>
+                                <span class="text-sm font-bold text-danger">45%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-danger h-2 rounded-full" style="width: 45%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                        <p class="text-sm text-blue-800">
+                            <i class="fas fa-info-circle mr-1"></i>
+                            <strong>Tip:</strong> Focus on highlighting your years of experience and specific project outcomes to improve experience level matching.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- @END_COMPONENT: AnalysisResults -->
+    </main>
+
+    <!-- @COMPONENT: Footer [Additional resources and links] -->
+    <footer class="bg-gray-900 text-white mt-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+                            <i class="fas fa-file-alt text-white"></i>
+                        </div>
+                        <h3 class="text-lg font-bold">ATS Resume Optimizer</h3>
+                    </div>
+                    <p class="text-gray-400 mb-4">
+                        Make your resume ATS-compliant and increase your chances of landing interviews.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Features</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Resume Analysis</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Keyword Optimization</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">ATS Testing</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Score Tracking</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Resume Templates</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Cover Letter Builder</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Interview Prep</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Career Guide</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white transition-colors">Help Center</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+                <p>&copy; 2024 ATS Resume Optimizer. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <!-- @END_COMPONENT: Footer -->
+
+    <script>
+        // UI Enhancement Scripts (Non-functional demo code)
+        (function() {
+            // TODO: Implement file upload handling
+            // TODO: Implement form validation
+            // TODO: Implement resume parsing and analysis
+            // TODO: Implement real-time keyword matching
+            // TODO: Implement progress tracking and score calculations
+            
+            // Demo interaction for file upload area
+            const uploadArea = document.querySelector('[data-implementation*="file upload"]');
+            if (uploadArea) {
+                uploadArea.addEventListener('click', function() {
+                    // TODO: Trigger file selection dialog
+                    console.log('File upload triggered');
+                });
+                
+                uploadArea.addEventListener('dragover', function(e) {
+                    e.preventDefault();
+                    this.classList.add('border-primary');
+                });
+                
+                uploadArea.addEventListener('dragleave', function(e) {
+                    e.preventDefault();
+                    this.classList.remove('border-primary');
+                });
+            }
+            
+            // Demo analysis button
+            const analyzeButton = document.querySelector('[data-event="click:handleAnalysis"]');
+            if (analyzeButton) {
+                analyzeButton.addEventListener('click', function() {
+                    // TODO: Implement actual analysis logic
+                    console.log('Analysis started');
+                });
+            }
+        })();
+    </script>
+</body>
+</html>
